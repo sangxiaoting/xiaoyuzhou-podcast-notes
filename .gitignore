@@ -1,0 +1,7 @@
+config.yaml
+processed.json
+*.mp3
+*.m4a
+__pycache__/
+*.pyc
+.DS_Store

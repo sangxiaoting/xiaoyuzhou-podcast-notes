@@ -1,0 +1,34 @@
+# 小宇宙播客订阅列表
+# 以下为推荐播客示例，你可以自行增删改
+podcasts:
+  - name: "硅谷101"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/5e5c52c9418a84a04625e6cc"
+  - name: "What's Next|科技早知道"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/5e74b52c418a84a046ecaceb"
+  - name: "张小珺Jun|商业访谈录"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/626b46ea9cbbf0451cf5a962"
+  - name: "声动早咖啡"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/60de7c003dd577b40d5a40f3"
+  - name: "OnBoard!"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/61cbaac48bb4cd867fcabe22"
+  - name: "创业内幕"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/5e7cccf8418a84a046c4e7f9"
+  - name: "商业就是这样"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/6022a180ef5fdaddc30bb101"
+  - name: "科技乱炖"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/5e4243cd418a84a0469573fb"
+  - name: "三五环"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/5e280fab418a84a0461faa3c"
+  - name: "疯投圈"
+    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/5e280faf418a84a0461fbd39"
+
+# 过滤规则
+filter:
+  min_duration_minutes: 10    # 跳过短于 10 分钟的节目
+  max_episodes_per_run: 5     # 每次最多处理 5 期
+
+# 输出目录（转录文本和 Markdown 笔记）
+output_dir: "~/Desktop/podcast-notes"
+
+# Whisper 模型（Apple Silicon 本地推理）
+whisper_model: "large-v3-turbo"
