@@ -32,3 +32,34 @@ output_dir: "~/Desktop/podcast-notes"
 
 # Whisper 模型（Apple Silicon 本地推理）
 whisper_model: "large-v3-turbo"
+
+# LLM 提炼配置（可选）
+# 配置后 run/process 会自动调用 LLM 将转录文本提炼为结构化 Markdown
+# 不配置则仅执行转录，提炼步骤需在 Claude Code 中完成
+#
+# llm:
+#   provider: "anthropic"                      # anthropic / openai / deepseek
+#   model: "claude-sonnet-4-20250514"           # 模型名称
+#   api_key: "sk-..."                           # API key（也可通过环境变量设置）
+#   base_url: ""                                # 可选，自定义 API 端点
+#
+# --- 各 provider 配置示例 ---
+#
+# Anthropic (Claude):
+# llm:
+#   provider: "anthropic"
+#   model: "claude-sonnet-4-20250514"
+#   api_key: ""                                 # 或设置环境变量 ANTHROPIC_API_KEY
+#
+# OpenAI (GPT):
+# llm:
+#   provider: "openai"
+#   model: "gpt-4o"
+#   api_key: ""                                 # 或设置环境变量 OPENAI_API_KEY
+#
+# DeepSeek:
+# llm:
+#   provider: "deepseek"
+#   model: "deepseek-chat"
+#   api_key: ""                                 # 或设置环境变量 DEEPSEEK_API_KEY
+#   base_url: "https://api.deepseek.com"

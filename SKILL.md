@@ -23,6 +23,7 @@ tools:
 - `/podcast-pipeline add <小宇宙播客URL>` — 添加新播客源
 - `/podcast-pipeline list` — 查看已配置的播客
 - `/podcast-pipeline process <音频文件路径>` — 处理单个本地音频文件
+- `/podcast-pipeline refine <转录文本路径>` — 对已有转录文本进行 LLM 提炼
 
 ## 执行指令
 
@@ -55,6 +56,14 @@ python3 ~/.claude/skills/podcast-pipeline/podcast_pipeline.py process <文件路
 ```
 
 脚本会输出转录文本路径，读取后按模板提炼。
+
+### `refine <转录文本路径>`：对已有转录文本进行 LLM 提炼
+
+```bash
+python3 ~/.claude/skills/podcast-pipeline/podcast_pipeline.py refine <转录文本路径>
+```
+
+需要在 config.yaml 中配置 `llm` 块。
 
 ## LLM 提炼模板
 

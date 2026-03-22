@@ -15,7 +15,7 @@ echo "Python: $(python3 --version)"
 
 # 安装 Python 依赖
 echo "安装 Python 依赖..."
-pip3 install mlx-whisper feedparser requests pyyaml
+pip3 install mlx-whisper feedparser requests pyyaml anthropic openai
 
 # 创建输出目录
 mkdir -p ~/Desktop/podcast-notes
@@ -39,4 +39,6 @@ echo "输出目录: ~/Desktop/podcast-notes"
 echo ""
 echo "下一步："
 echo "  1. 编辑 config.yaml 配置你关注的播客"
-echo "  2. 在 Claude Code 中执行 /podcast-pipeline"
+echo "  2. （可选）配置 LLM 提炼：在 config.yaml 中添加 llm 配置块"
+echo "  3. 运行: python3 podcast_pipeline.py run"
+echo "     或在 Claude Code 中执行 /podcast-pipeline"
