@@ -122,9 +122,12 @@ export DEEPSEEK_API_KEY="sk-..."
 编辑 `config.yaml`：
 
 ```yaml
+# RSSHub 实例地址（可替换为自部署实例）
+rsshub_base: "https://rsshub.rssforever.com"
+
 podcasts:
   - name: "播客名称"
-    rss: "https://api.xiaoyuzhoufm.com/v1/podcast/rss/<podcast-id>"
+    rss: "https://rsshub.rssforever.com/xiaoyuzhou/podcast/<podcast-id>"
 
 filter:
   min_duration_minutes: 10    # 跳过短节目
@@ -134,13 +137,19 @@ output_dir: "~/Desktop/podcast-notes"  # 输出目录
 whisper_model: "large-v3-turbo"        # Whisper 模型
 ```
 
+**RSS 地址说明**
+
+本工具通过 [RSSHub](https://docs.rsshub.app/) 代理获取小宇宙播客 RSS。默认使用公共实例 `rsshub.rssforever.com`，你也可以：
+- 修改 `rsshub_base` 为其他公共实例（如 `https://rsshub.app`）
+- [自部署 RSSHub](https://docs.rsshub.app/deploy/) 以获得更稳定的服务
+
 **如何获取播客 RSS 地址？**
 
 在小宇宙 App 或网页打开播客主页，URL 格式为：
 ```
 https://www.xiaoyuzhoufm.com/podcast/<podcast-id>
 ```
-使用 `python3 podcast_pipeline.py add <URL>` 即可自动添加。
+使用 `python3 podcast_pipeline.py add <URL>` 即可自动添加（会自动生成 RSSHub 格式的 RSS 地址）。
 
 ## Pipeline 流程
 

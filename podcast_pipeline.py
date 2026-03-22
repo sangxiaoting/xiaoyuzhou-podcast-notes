@@ -345,7 +345,10 @@ def cmd_run(args):
         print(f"RSS: {rss_url}")
 
         try:
-            feed = feedparser.parse(rss_url)
+            feed = feedparser.parse(
+                rss_url,
+                request_headers={"User-Agent": "Mozilla/5.0 (podcast-pipeline)"},
+            )
         except Exception as e:
             print(f"  RSS 解析失败: {e}")
             continue
@@ -467,12 +470,15 @@ def cmd_run(args):
 def cmd_add(args):
     """添加新播客源"""
     url = args.url
+    config = load_config()
+    rsshub_base = config.get("rsshub_base", "https://rsshub.rssforever.com").rstrip("/")
+
     # 从小宇宙 URL 提取 podcast ID
     # 支持格式: https://www.xiaoyuzhoufm.com/podcast/XXXXX
     match = re.search(r"podcast/([a-f0-9]+)", url)
     if match:
         podcast_id = match.group(1)
-        rss_url = f"https://api.xiaoyuzhoufm.com/v1/podcast/rss/{podcast_id}"
+        rss_url = f"{rsshub_base}/xiaoyuzhou/podcast/{podcast_id}"
     elif url.startswith("http") and "rss" in url:
         rss_url = url
         podcast_id = url.split("/")[-1]
@@ -484,12 +490,14 @@ def cmd_add(args):
     # 尝试获取播客名称
     print(f"正在获取播客信息...")
     try:
-        feed = feedparser.parse(rss_url)
+        feed = feedparser.parse(
+            rss_url,
+            request_headers={"User-Agent": "Mozilla/5.0 (podcast-pipeline)"},
+        )
         name = feed.feed.get("title", f"播客_{podcast_id[:8]}")
     except Exception:
         name = f"播客_{podcast_id[:8]}"
 
-    config = load_config()
     # 检查重复
     for p in config.get("podcasts", []):
         if p["rss"] == rss_url:
