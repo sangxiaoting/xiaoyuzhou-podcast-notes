@@ -206,6 +206,7 @@ def get_llm_config(config):
         "anthropic": "ANTHROPIC_API_KEY",
         "openai": "OPENAI_API_KEY",
         "deepseek": "DEEPSEEK_API_KEY",
+        "kimi": "MOONSHOT_API_KEY",
     }
     env_var = env_key_map.get(provider)
     if env_var and os.environ.get(env_var):
@@ -224,6 +225,11 @@ def get_llm_config(config):
             llm_config["model"] = "deepseek-chat"
         if not llm_config["base_url"]:
             llm_config["base_url"] = "https://api.deepseek.com"
+    elif provider == "kimi":
+        if not llm_config["model"]:
+            llm_config["model"] = "moonshot-v1-128k"
+        if not llm_config["base_url"]:
+            llm_config["base_url"] = "https://api.moonshot.cn/v1"
     elif provider == "openai":
         if not llm_config["model"]:
             llm_config["model"] = "gpt-4o"
@@ -345,10 +351,9 @@ def cmd_run(args):
         print(f"RSS: {rss_url}")
 
         try:
-            feed = feedparser.parse(
-                rss_url,
-                request_headers={"User-Agent": "Mozilla/5.0 (podcast-pipeline)"},
-            )
+            resp = requests.get(rss_url, headers={"User-Agent": "Mozilla/5.0 (podcast-pipeline)"}, timeout=30)
+            resp.raise_for_status()
+            feed = feedparser.parse(resp.text)
         except Exception as e:
             print(f"  RSS 解析失败: {e}")
             continue
@@ -490,10 +495,9 @@ def cmd_add(args):
     # 尝试获取播客名称
     print(f"正在获取播客信息...")
     try:
-        feed = feedparser.parse(
-            rss_url,
-            request_headers={"User-Agent": "Mozilla/5.0 (podcast-pipeline)"},
-        )
+        resp = requests.get(rss_url, headers={"User-Agent": "Mozilla/5.0 (podcast-pipeline)"}, timeout=30)
+        resp.raise_for_status()
+        feed = feedparser.parse(resp.text)
         name = feed.feed.get("title", f"播客_{podcast_id[:8]}")
     except Exception:
         name = f"播客_{podcast_id[:8]}"
